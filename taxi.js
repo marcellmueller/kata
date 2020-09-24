@@ -1,15 +1,28 @@
-let direction = "start";
-let east = 0;
-let north = 0;
-
 const blocksAway = (directions) => {
-	for (let i = 0; i < directions.length; i + 2) {
-		if ((directions[i] = "right")) {
+	let direction = "start";
+	let east = 0;
+	let north = 0;
+
+	for (let i = 0; i < directions.length; i += 2) {
+		direction = changeDirection(direction, directions[i]);
+		switch (true) {
+			case direction === "north":
+				north += directions[i + 1];
+				break;
+			case direction === "south":
+				north -= directions[i + 1];
+				break;
+			case direction === "east":
+				east += directions[i + 1];
+				break;
+			case direction === "west":
+				east -= directions[i + 1];
+				break;
 		}
 	}
+	return { east: east, north: north };
 };
-
-let changeDirection = (directions) => {
+let changeDirection = (direction, directions) => {
 	switch (true) {
 		case directions === "right" && direction === "start":
 			direction = "east";
@@ -18,31 +31,33 @@ let changeDirection = (directions) => {
 			direction = "north";
 			break;
 		case directions === "right" && direction === "north":
-			direction === "east";
+			direction = "east";
 			break;
 		case directions === "left" && direction === "north":
-			direction === "west";
+			direction = "west";
 			break;
 		case directions === "right" && direction === "east":
-			direction === "south";
+			direction = "south";
 			break;
 		case directions === "left" && direction === "east":
-			direction === "north";
+			direction = "north";
 			break;
 		case directions === "right" && direction === "west":
-			direction === "north";
+			direction = "north";
 			break;
 		case directions === "left" && direction === "west":
-			direction === "south";
+			direction = "south";
 			break;
 		case directions === "right" && direction === "south":
-			direction === "west";
+			direction = "west";
 			break;
 		case directions === "left" && direction === "south":
-			direction === "east";
+			direction = "east";
 			break;
 	}
+	return direction;
 };
+
 console.log(blocksAway(["right", 2, "left", 3, "left", 1]));
 console.log(
 	blocksAway([
